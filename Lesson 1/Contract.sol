@@ -17,9 +17,6 @@ contract ZombieFactory {
     // Public `Zombie` struct with array named `zombies`
     Zombie[] public zombies;
 
-    mapping (uint => address) public zombieToOwner;
-    mapping (address => uint) ownerZombieCount;
-
     function _createZombie(string _name, uint _dna) private {
         // Creates a new `Zombie`, and adds it to the `zombies` array.
         // The name and dna for the new Zombie come from the function arguments.

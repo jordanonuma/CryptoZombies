@@ -17,7 +17,7 @@ contract ZombieFactory {
     // Public `Zombie` struct with array named `zombies`
     Zombie[] public zombies;
 
-    function _createZombie(string _name, uint _dna) private {
+    function _createZombie(string _name, uint _dna) internal { // internal type so ZombieFeeding.sol can access
         // Creates a new `Zombie`, and adds it to the `zombies` array.
         // The name and dna for the new Zombie come from the function arguments.
         // zombies.push(Zombie(_name, _dna));

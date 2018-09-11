@@ -2,9 +2,9 @@ pragma solidity ^0.4.19;
 
 import "./ZombieFactory.sol";
 
-
 contract KittyInterface {
-  // To simulate zombie eating the CryptoKitty, reads the CryptoKitties data 
+
+  // To simulate zombie eating the CryptoKitty, reads the CryptoKitties data
   // from variable `genes` in function getKitty().
   function getKitty(uint256 _id) external view returns (
     bool isGestating,
@@ -22,6 +22,11 @@ contract KittyInterface {
 
 // ZombieFeeding.sol inherits from ZombieFactory.sol (previously Contract.sol)
 contract ZombieFeeding is ZombieFactory {
+
+  // Contract address for CryptoKitties
+  address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+  // Creates KittyInterface with `ckAddress`
+  KittyInterface kittyContract = KittyInterface(ckAddress);
 
   function feedAndMultiply(uint _zombieId, uint _targetDna) public {
 

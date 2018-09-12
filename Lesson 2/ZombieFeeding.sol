@@ -51,4 +51,21 @@ contract ZombieFeeding is ZombieFactory {
     // these are public variables. Also not sure why DNA isn't all caps here.
     _createZombie("NoName", newDna);
   } // end of function feedAndMultiply()
+
+  // Public function `feedOnKitty` will take 2 uint parameters, `_zombieId` and
+  // `_kittyId`.
+  function feedOnKitty(uint _zombieId, uint _kittyId) public {
+
+    // Declare integer `kittyDna`.
+    uint kittyDna;
+
+    // Calls function kittyContract.getKitty() with _kittyId.
+    //    * Stores genes in kittyDna.
+    //    * getKitty() returns 10 variables, we only want the 10th, `genes`.
+    //    * `genes` will be saved as `kittyDna`.
+    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
+
+    // Calls function `feedAndMultiply` passing variables `_zombieId` and `kittyDna`.
+    feedAndMultiply(_zombieId, kittyDna);
+  } // end of function feedOnKitty()
 } // end of contract ZombieFeeding{}

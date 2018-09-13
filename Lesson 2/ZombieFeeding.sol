@@ -52,7 +52,7 @@ contract ZombieFeeding is ZombieFactory {
           // Example: Assume newDna is 334455.
           // Then newDna % 100 is 55, so newDna - newDna % 100 is 334400.
           // Finally add 99 to get 334499.
-      newDna = newDna - newDna %100 + 99;
+      newDna = newDna - newDna % 100 + 99;
     }
 
     // Calls function _createZombie from ZombieFactory.sol with parameters

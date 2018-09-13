@@ -28,7 +28,7 @@ contract ZombieFeeding is ZombieFactory {
   // Creates KittyInterface with `ckAddress`
   KittyInterface kittyContract = KittyInterface(ckAddress);
 
-  function feedAndMultiply(uint _zombieId, uint _targetDna) public {
+  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
 
     // Makes sure sender is this zombie's owner.
     require(msg.sender == zombieToOwner[_zombieId]);
@@ -45,6 +45,15 @@ contract ZombieFeeding is ZombieFactory {
     // Next our function should declare a uint named newDna, and set it equal to
     // the average of myZombie's DNA and _targetDna (as in the example above).
     uint newDna = (myZombie.dna + _targetDna) / 2;
+
+    // Compares the keccak256 hashes of `_species` and the string "kitty"
+    if (keccak256(_species) == keccak256("kitty")){
+      // Replaces the last 2 digits of DNA with 99 if species is a kitty.
+          // Example: Assume newDna is 334455.
+          // Then newDna % 100 is 55, so newDna - newDna % 100 is 334400.
+          // Finally add 99 to get 334499.
+      newDna = newDna - newDna %100 + 99;
+    }
 
     // Calls function _createZombie from ZombieFactory.sol with parameters
     // "NoName" as name and averaged `newDna` as Dna. Note: no _underscores because
@@ -66,6 +75,7 @@ contract ZombieFeeding is ZombieFactory {
     (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
 
     // Calls function `feedAndMultiply` passing variables `_zombieId` and `kittyDna`.
-    feedAndMultiply(_zombieId, kittyDna);
+    // Appends parameter "kitty" to the end.
+    feedAndMultiply(_zombieId, kittyDna, "kitty");
   } // end of function feedOnKitty()
 } // end of contract ZombieFeeding{}

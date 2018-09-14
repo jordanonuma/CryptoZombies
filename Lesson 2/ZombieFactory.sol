@@ -1,6 +1,13 @@
 pragma solidity ^0.4.19;
 
-contract ZombieFactory {
+
+
+    // Modify our code to import the contents of ownable.sol.
+
+// ZombieFactory{} inherits from Ownable.sol. Then,
+// 1) access will be restricted to the person who deployed the contract (msg.sender)
+// 2) allows current owner to transfer ownership to another permissions
+contract ZombieFactory is Ownable {
 
     // Declares the NewZombie event. Event will let the front-end know every time
     // a new zombie has been created, so the dApp can display the zombie.

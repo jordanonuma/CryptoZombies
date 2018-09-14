@@ -23,10 +23,14 @@ contract KittyInterface {
 // ZombieFeeding.sol inherits from ZombieFactory.sol (previously Contract.sol)
 contract ZombieFeeding is ZombieFactory {
 
-  // Contract address for CryptoKitties
-  address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
-  // Creates KittyInterface with `ckAddress`
-  KittyInterface kittyContract = KittyInterface(ckAddress);
+  // Declares variable `kittyContract` from contract KittyInterface{}
+  KittyInterface kittyContract;
+
+  // Function setKittyContractAddress() will allow us to setKittyContractAddress
+  // and change the CryptoKitties contract address in the future if necessary.
+  function setKittyContractAddress(address _address) external {
+    kittyContract = KittyInterface(_address);
+  }
 
   function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
 

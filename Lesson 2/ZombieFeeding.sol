@@ -30,7 +30,21 @@ contract ZombieFeeding is ZombieFactory {
   // and change the CryptoKitties contract address in the future if necessary.
   function setKittyContractAddress(address _address) external onlyOwner {
     kittyContract = KittyInterface(_address);
-  }
+  } // end of function setKittyContractAddress()
+
+  // Internal function _triggerCooldown() will take argument '_zombie', a Zombie storage pointer.
+  // I think argument '_zombie' will be particular to ownly this function.
+  function _triggerCooldown(Zombie storage _zombie) internal {
+    // Sets when the zombie will be able to attack.
+    _zombie.readyTime = uint32(now + cooldownTime);
+  } // end of function _triggerCooldown()
+
+  // Internal view function _isReady() will also take a Zombie storage argument
+  // named _zombie and returns a bool.
+  function _isReady(Zombie storage _zombie) internal view returns (bool) {
+      // Returns if enough time has passed since the last time the zombie attacked.
+      return (_zombie.readyTime <= now);
+  } // end of function _isReady()
 
   function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
 

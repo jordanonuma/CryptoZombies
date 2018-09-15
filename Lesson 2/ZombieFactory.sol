@@ -19,6 +19,9 @@ contract ZombieFactory is Ownable {
     struct Zombie {
         string name;
         uint dna;
+        // Putting two compact uints together saves space.
+        uint32 level;    // Compact uints (e.g. uint32 vs uint 64) saves space in structs.
+        uint32 readyTime;// Cooldown timer to limit how often a zombie can feed.
     }
 
     // Public `Zombie` struct with array named `zombies`

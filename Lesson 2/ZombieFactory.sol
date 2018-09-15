@@ -15,6 +15,7 @@ contract ZombieFactory is Ownable {
 
     uint dnaDigits = 16;
     uint dnaModulus = 10 ** dnaDigits;
+    uint cooldownTime = 1 days;
 
     struct Zombie {
         string name;
@@ -36,7 +37,7 @@ contract ZombieFactory is Ownable {
         // array.push() returns a uint of the new length of the array.
         // Since the first item in an array has index 0, array.push() - 1 will be
         // the index of the zombie we just added.
-        uint id = zombies.push(Zombie(_name, _dna)) - 1;
+        uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
 
         // Fires the event to let the dApp know the new zombie was added to the `zombies` arrray.
         NewZombie(id, _name, _dna);

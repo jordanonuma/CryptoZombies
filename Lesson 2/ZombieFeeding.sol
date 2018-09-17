@@ -17,8 +17,8 @@ contract KittyInterface {
     uint256 sireId,
     uint256 generation,
     uint256 genes
-  );
-}
+  ); // end of function getKitty()
+} // end of contract KittyInterface{}
 
 // ZombieFeeding.sol inherits from ZombieFactory.sol (previously Contract.sol)
 contract ZombieFeeding is ZombieFactory {
@@ -46,7 +46,8 @@ contract ZombieFeeding is ZombieFactory {
       return (_zombie.readyTime <= now);
   } // end of function _isReady()
 
-  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
+  // Function is internal so users can't call this function with any DNA they want.
+  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) internal {
 
     // Makes sure sender is this zombie's owner.
     require(msg.sender == zombieToOwner[_zombieId]);
@@ -54,6 +55,10 @@ contract ZombieFeeding is ZombieFactory {
     // Declares local `Zombie` struct named `myZombie` (storage pointer).
     // Sets variable to be equal to index _zombieId in our `zombies` array.
     Zombie storage myZombie = zombies[_zombieId];
+
+    // Require _isReady() passes 'myZombie'. User can only execute function feedAndMultiply()
+    // if a zombie's cooldown time is over.
+    require(_isReady(myZombie));
 
     // First we need to make sure that _targetDna isn't longer than 16 digits.
     // To do this, we can set _targetDna equal to _targetDna % dnaModulus to only take the
@@ -77,6 +82,10 @@ contract ZombieFeeding is ZombieFactory {
     // "NoName" as name and averaged `newDna` as Dna. Note: no _underscores because
     // these are public variables. Also not sure why DNA isn't all caps here.
     _createZombie("NoName", newDna);
+
+    // Feeding triggers the zombie's cooldown time.
+    _triggerCooldown(myZombie);
+
   } // end of function feedAndMultiply()
 
   // Public function `feedOnKitty` will take 2 uint parameters, `_zombieId` and

@@ -50,7 +50,7 @@ contract ZombieFeeding is ZombieFactory {
   function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) internal {
 
     // Makes sure sender is this zombie's owner.
-    require(msg.sender == zombieToOwner[_zombieId]);
+      require(msg.sender == zombieToOwner[_zombieId]);
 
     // Declares local `Zombie` struct named `myZombie` (storage pointer).
     // Sets variable to be equal to index _zombieId in our `zombies` array.
@@ -76,7 +76,7 @@ contract ZombieFeeding is ZombieFactory {
           // Then newDna % 100 is 55, so newDna - newDna % 100 is 334400.
           // Finally add 99 to get 334499.
       newDna = newDna - newDna % 100 + 99;
-    }
+    } //end if _species == "kitty"
 
     // Calls function _createZombie from ZombieFactory.sol with parameters
     // "NoName" as name and averaged `newDna` as Dna. Note: no _underscores because

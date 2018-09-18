@@ -1,8 +1,6 @@
 pragma solidity ^0.4.19;
 
-
-
-    // Modify our code to import the contents of ownable.sol.
+// Modify our code to import the contents of ownable.sol.
 
 // ZombieFactory{} inherits from Ownable.sol. Then,
 // 1) access will be restricted to the person who deployed the contract (msg.sender)
@@ -27,6 +25,8 @@ contract ZombieFactory is Ownable {
 
     // Public `Zombie` struct with array named `zombies`
     Zombie[] public zombies;
+    mapping (uint => address) public zombieToOwner;
+    mapping (address => uint) ownerZombieCount;
 
     function _createZombie(string _name, uint _dna) internal { // internal type so ZombieFeeding.sol can access
         // Creates a new `Zombie`, and adds it to the `zombies` array.
@@ -39,9 +39,11 @@ contract ZombieFactory is Ownable {
         // the index of the zombie we just added.
         uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
 
+        zombieToOwner[id] = msg.sender;
+        ownerZombieCount[msg.sender]++;
+
         // Fires the event to let the dApp know the new zombie was added to the `zombies` arrray.
         NewZombie(id, _name, _dna);
-
     } // end of function _createZombie()
 
     function _generateRandomDna(string _str) private view returns (uint) {
@@ -56,8 +58,11 @@ contract ZombieFactory is Ownable {
     } // end of function _generateRandomDna()
 
     function createRandomZombie(string _name) public {
+        require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
+        randDna = randDna - randDna % 100;
         _createZombie(_name, randDna);
+
     } // end of function createRandomZombie()
 
 } // end of Contract.sol

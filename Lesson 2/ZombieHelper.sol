@@ -22,4 +22,9 @@ contract ZombieHelper is ZombieFeeding {
     zombies[_zombieId].dna = _newDna;
   } // end of function changeDna()
 
+  // Function getZombiesByOwner() will return a user's entire zombie army, uint[] (an array of uint).
+  function getZombiesByOwner(address _owner) external view returns(uint[]) {
+
+  } // end of function getZombiesByOwner()
+
 } // end of contract ZombieHelper{}

@@ -35,7 +35,7 @@ contract ZombieHelper is ZombieFeeding {
 
     // Declares a uint[] memory variable 'result'. This new uint array will be
     // declared of length equal to how many zombies the user owns. Generic declaration for 3 items:
-    //   uint[] memory values = new uint[](3);
+    //      uint[] memory values = new uint[](3);
     uint[] memory result = new uint[](ownerZombieCount[_owner]);
     uint counter = 0;
     for (uint i = 0; i < zombies.length; i++) {

@@ -29,8 +29,15 @@ contract ZombieHelper is ZombieFeeding {
     // declared of length equal to how many zombies the user owns. Generic declaration for 3 items:
     //   uint[] memory values = new uint[](3);
     uint[] memory result = new uint[](ownerZombieCount[_owner]);
-
+    uint counter = 0;
+    for (uint i = 0; i < zombies.length; i++) {
+      if (zombieToOwner[i] == _owner) {
+        // Adds the zombie's ID to our result array by setting result[counter] equal to i.
+        result[counter] = i;
+        counter++;
+      } // end if (zombieToOwner[i] == _owner)
+    } // end for (i < zombies.length)
     return result;
   } // end of function getZombiesByOwner()
-
+  
 } // end of contract ZombieHelper{}

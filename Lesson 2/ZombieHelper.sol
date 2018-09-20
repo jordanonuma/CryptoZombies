@@ -4,11 +4,19 @@ import "./zombiefeeding.sol";
 
 contract ZombieHelper is ZombieFeeding {
 
+  uint levelUpFee = 0.001 ether;
+
   modifier aboveLevel(uint _level, uint _zombieId) {
     // Requires struct zombies[_zombieId].level is greater than or equal to _level.
     require(zombies[_zombieId].level >= _level);
     _;
   } // end of modifier aboveLevel
+
+  // A fee of 0.001 Ether is required from the user to increase their zombie's level +1.
+  function levelUp(uint _zombieId) external payable {
+    require(msg.value == levelUpFee);
+    zombies[_zombieId].level++;
+  } // end of function levelUp()
 
   // For zombies level 2 and higher, users will be able to change their name.
   function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) {
@@ -39,5 +47,5 @@ contract ZombieHelper is ZombieFeeding {
     } // end for (i < zombies.length)
     return result;
   } // end of function getZombiesByOwner()
-  
+
 } // end of contract ZombieHelper{}

@@ -12,6 +12,16 @@ contract ZombieHelper is ZombieFeeding {
     _;
   } // end of modifier aboveLevel
 
+  // Function withdraw() uses modifier onlyOwner and address variable 'owner'.
+  function withdraw() external onlyOwner {
+    owner.transfer(this.balance);
+  } // end of function withdraw()
+
+  // Function setLevelUpFee() allows owner to change the levelUpFee.
+  function setLevelUpFee(uint _fee) external onlyOwner {
+    levelUpFee = _fee;
+  } // end of function setLevelUpFee()
+
   // A fee of 0.001 Ether is required from the user to increase their zombie's level +1.
   function levelUp(uint _zombieId) external payable {
     require(msg.value == levelUpFee);

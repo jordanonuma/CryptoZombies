@@ -26,6 +26,12 @@ contract ZombieFeeding is ZombieFactory {
   // Declares variable `kittyContract` from contract KittyInterface{}
   KittyInterface kittyContract;
 
+  // This will be used in functions to make sure user owns the zombie.
+  modifier ownerOf(uint _zombieId) {
+    require(msg.sender == zombieToOwner[_zombieId]);
+    _;
+  } // end of modifier ownerOf()
+
   // Function setKittyContractAddress() will allow us to setKittyContractAddress
   // and change the CryptoKitties contract address in the future if necessary.
   function setKittyContractAddress(address _address) external onlyOwner {
@@ -47,10 +53,8 @@ contract ZombieFeeding is ZombieFactory {
   } // end of function _isReady()
 
   // Function is internal so users can't call this function with any DNA they want.
-  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) internal {
-
-    // Makes sure sender is this zombie's owner.
-      require(msg.sender == zombieToOwner[_zombieId]);
+  // Modifier ownerOf(_zombieId) makes sure user owns the zombie of '_zombieId'.
+  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) internal ownerOf(_zombieId) {
 
     // Declares local `Zombie` struct named `myZombie` (storage pointer).
     // Sets variable to be equal to index _zombieId in our `zombies` array.

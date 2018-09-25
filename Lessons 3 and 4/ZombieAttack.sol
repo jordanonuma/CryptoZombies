@@ -13,14 +13,23 @@ contract ZombieBattle is ZombieHelper {
 
     // keccak256 takes  hash of now, msg.sender, and randNonce.
     return uint(keccak256(now, msg.sender, randNonce)) % _modulus;
-    
+
   } // end of function randMod()
 
   // If the attacking zombie wins, it levels up and spawns a new zombie.
   // If it loses, nothing happens (except its lossCount incrementing).
   // Whether it wins or loses, the attacking zombie's cooldown time will begin.
-  function attack(uint _zombieId, uint _targetId) external {
 
+  function attack(uint _zombieId, uint _targetId) external ownerOf(_zombieId) {
+
+    // Sets 'Zombie storage' named 'myZombie'.
+    Zombie storage myZombie = zombies[_zombieId];
+
+    // Sets 'Zombie storage' named 'enemyZombie'.
+    Zombie storage enemyZombie = zombies[_targetId];
+
+    // A pseudo-random number between 0 and 99 determines the battle outcome.
+    uint rand = randMod(100);
   } // end of function attack()
 
 } // end Contract ZombieBattle {}

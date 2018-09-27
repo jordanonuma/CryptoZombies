@@ -21,6 +21,8 @@ contract ZombieFactory is Ownable {
         // Putting two compact uints together saves space.
         uint32 level;    // Compact uints (e.g. uint32 vs uint 64) saves space in structs.
         uint32 readyTime;// Cooldown timer to limit how often a zombie can feed.
+        uint16 winCount; // Wins and losses of zombie battles are stored inside struct.
+        uint16 lossCount;
     }
 
     // Public `Zombie` struct with array named `zombies`
@@ -37,7 +39,7 @@ contract ZombieFactory is Ownable {
         // array.push() returns a uint of the new length of the array.
         // Since the first item in an array has index 0, array.push() - 1 will be
         // the index of the zombie we just added.
-        uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
+        uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime), 0, 0)) - 1;
 
         zombieToOwner[id] = msg.sender;
         ownerZombieCount[msg.sender]++;

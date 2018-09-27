@@ -30,6 +30,14 @@ contract ZombieBattle is ZombieHelper {
 
     // A pseudo-random number between 0 and 99 determines the battle outcome.
     uint rand = randMod(100);
+
+    if (rand <= attackVictoryProbability) {
+      myZombie.winCount++;
+      myZombie.level++;
+      enemyZombie.lossCount++;
+      // Function in ZombieFeeding.sol will call _createZombie using newDna.
+      feedAndMultiply(_zombieId, enemyZombie.dna, "zombie"); // function takes enemy zombie's dna _not_ _targetId.
+    } // end if (rand <= attackVictoryProbability)
   } // end of function attack()
 
-} // end Contract ZombieBattle {}
+} // end of Contract ZombieBattle {}

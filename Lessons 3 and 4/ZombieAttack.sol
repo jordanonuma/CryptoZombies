@@ -37,6 +37,11 @@ contract ZombieBattle is ZombieHelper {
       enemyZombie.lossCount++;
       // Function in ZombieFeeding.sol will call _createZombie using newDna.
       feedAndMultiply(_zombieId, enemyZombie.dna, "zombie"); // function takes enemy zombie's dna _not_ _targetId.
+    } else {
+      // The 30% case if user's zombie loses.
+      myZombie.lossCount++;
+      enemyZombie.winCount++;
+      _triggerCooldown(myZombie); // Note: I guess the user doesn't lose their zombie under feedAndMultiply().
     } // end if (rand <= attackVictoryProbability)
   } // end of function attack()
 

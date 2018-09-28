@@ -1,4 +1,3 @@
-# CryptoZombies
 ![](zAssets/Images/CryptoZombies.png)
 Below is the general progression of the contracts, each with their own sublessons (called chapters in the course):
  - Lesson 1: Making the Zombie Factory

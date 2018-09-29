@@ -1,7 +1,8 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.25;
 
 import "./ZombieAttack.sol";
+import "./ERC721.sol";
 
-contract ZombieOwnership is ZombieAttack {
+contract ZombieOwnership is ZombieAttack, ERC721 {
 
 }

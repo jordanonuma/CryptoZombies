@@ -1,3 +1,5 @@
+pragma solidity ^0.4.25;
+
 // The ERC721 standard is currently a draft (as of 29 September 2018), and there is no officially agreed-upon
 // implementation yet. For this tutorial we're using the current version from OpenZeppelin's
 // library, but it is possible it will change in the future before its official release.

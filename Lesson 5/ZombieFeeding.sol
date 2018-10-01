@@ -27,7 +27,7 @@ contract ZombieFeeding is ZombieFactory {
   KittyInterface kittyContract;
 
   // This will be used in functions to make sure user owns the zombie.
-  modifier ownerOf(uint _zombieId) {
+  modifier onlyOwnerOf(uint _zombieId) {
     require(msg.sender == zombieToOwner[_zombieId]);
     _;
   } // end of modifier ownerOf()
@@ -54,7 +54,7 @@ contract ZombieFeeding is ZombieFactory {
 
   // Function is internal so users can't call this function with any DNA they want.
   // Modifier ownerOf(_zombieId) makes sure user owns the zombie of '_zombieId'.
-  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) internal ownerOf(_zombieId) {
+  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) internal onlyOwnerOf(_zombieId) {
 
     // Declares local `Zombie` struct named `myZombie` (storage pointer).
     // Sets variable to be equal to index _zombieId in our `zombies` array.

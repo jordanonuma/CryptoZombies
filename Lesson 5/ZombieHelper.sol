@@ -29,15 +29,15 @@ contract ZombieHelper is ZombieFeeding {
   } // end of function levelUp()
 
   // For zombies level 2 and higher, users will be able to change their name.
-  function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) ownerOf(_zombieId) {
-    // v-- Replaced with modifier ownerOf(). --v
+  function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) onlyOwnerOf(_zombieId) {
+    // v-- Replaced with modifier onlyOwnerOf(). --v
     // require(msg.sender == zombieToOwner[_zombieId]); //check if user is zombie owner
     zombies[_zombieId].name = _newName;
   } // end of function changeName()
 
   // For zombies level 20 and higher, users will be able to give them custom DNA.
-  function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombieId) ownerOf(_zombieId) {
-    // v-- Replaced with modifier ownerOf(). --v
+  function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombieId) onlyOwnerOf(_zombieId) {
+    // v-- Replaced with modifier onlyOwnerOf(). --v
     // require(msg.sender == zombieToOwner[_zombieId]); //check if user is zombie owner
     zombies[_zombieId].dna = _newDna;
   } // end of function changeDna()

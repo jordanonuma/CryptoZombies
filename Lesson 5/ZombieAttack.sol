@@ -20,7 +20,7 @@ contract ZombieBattle is ZombieHelper {
   // If it loses, nothing happens (except its lossCount incrementing).
   // Whether it wins or loses, the attacking zombie's cooldown time will begin.
 
-  function attack(uint _zombieId, uint _targetId) external ownerOf(_zombieId) {
+  function attack(uint _zombieId, uint _targetId) external onlyOwnerOf(_zombieId) {
 
     // Sets 'Zombie storage' named 'myZombie'.
     Zombie storage myZombie = zombies[_zombieId];

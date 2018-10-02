@@ -15,6 +15,18 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
     return zombieToOwner[_tokenId];
   }
 
+  function _transfer(address _from, address _to, uint256 _tokenId) private {
+      ownerZombieCount[_to]++;
+      ownerZombieCount[_from]--;
+
+      // Changes the zombieToOwner mapping [from Contract ZombieFactory {}] for this
+      // so for every '_tokenId' zombie, the mapping shows '_to' owner.
+      zombieToOwner[_tokenId] => _to;
+
+      // Fires 'Event Transfer' in ERC721.sol
+      Transfer(_from, _to, _tokenId);
+  } // end of function _transfer()
+
   function transfer(address _to, uint256 _tokenId) public {
 
   }

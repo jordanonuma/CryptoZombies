@@ -27,7 +27,7 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
       Transfer(_from, _to, _tokenId);
   } // end of function _transfer() private {}
 
-  function transfer(address _to, uint256 _tokenId) onlyOwnerOf public {
+  function transfer(address _to, uint256 _tokenId) onlyOwnerOf(_tokenId) public {
     // Public function transfer() is restricted to msg.sender.
     // transfer() calls private function _transfer(), restricted to callable by
     // functions within this contract.

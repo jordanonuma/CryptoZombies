@@ -5,6 +5,10 @@ import "./ERC721.sol";
 
 contract ZombieOwnership is ZombieAttack, ERC721 {
 
+  // Used to check who is approved to take the token when user calls takeOwnership(),
+  // passing _tokenId. 'Uint' will be the token.
+  mapping (uint => address) zombieApprovals;
+
   function balanceOf(address _owner) public view returns (uint256 _balance) {
     // ownerZombieCount[] mapping is from Contract ZombieFactory {}.
     return ownerZombieCount[_owner];
@@ -34,8 +38,9 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
     _transfer(msg.sender, _to, _tokenId);
   } // end of function transfer() public {}
 
-  function approve(address _to, uint256 _tokenId) public {
-
+  function approve(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
+    zombieApprovals[_tokenId] = _to; // Token(s) can only be sent to '_to' for a given approved '_tokenId'.
+    Approval(msg.sender, _to, _tokenId); // Syntax from ERC721.sol.
   }
 
   function takeOwnership(uint256 _tokenId) public {

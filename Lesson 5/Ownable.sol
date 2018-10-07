@@ -33,6 +33,9 @@ same for our contract.
  // Constructors: function Ownable() is a constructor, which is an optional special
  // function that has the same name as the contract. It will get executed only one
  // time, when the contract is first created.
+
+pragma solidity ^0.4.25;
+
 contract Ownable {
   address public owner;
   event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);

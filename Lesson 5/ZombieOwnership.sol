@@ -12,7 +12,7 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
   function balanceOf(address _owner) public view returns (uint256 _balance) {
     // ownerZombieCount[] mapping is from Contract ZombieFactory {}.
     return ownerZombieCount[_owner];
-  }
+  } // end of function balanceOf()
 
   function ownerOf(uint256 _tokenId) public view returns (address _owner) {
     // zombieToOwner[] mapping is from Contract ZombieFactory {}.
@@ -41,9 +41,14 @@ contract ZombieOwnership is ZombieAttack, ERC721 {
   function approve(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
     zombieApprovals[_tokenId] = _to; // Token(s) can only be sent to '_to' for a given approved '_tokenId'.
     Approval(msg.sender, _to, _tokenId); // Syntax from ERC721.sol.
-  }
+  } // end of function approve();
 
   function takeOwnership(uint256 _tokenId) public {
+    // Tests to make msg.sender is approved to take the ERC721 token
+    // If test passes, call function '_transfer'.
+    require(zombieApprovals[_tokenId] == msg.sender);
+    address owner = ownerOf(_tokenId);
 
-  }
-}
+    _transfer(owner, msg.sender, _tokenId);
+  } // end of function takeOwnership()
+} // end of Contract ZombieOwnership {}

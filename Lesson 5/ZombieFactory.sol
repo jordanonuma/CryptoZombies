@@ -1,4 +1,6 @@
 pragma solidity ^0.4.25;
+import "./Ownable.sol";
+import "./SafeMath.sol";
 
 // Modify our code to import the contents of ownable.sol.
 
@@ -6,6 +8,8 @@ pragma solidity ^0.4.25;
 // 1) access will be restricted to the person who deployed the contract (msg.sender)
 // 2) allows current owner to transfer ownership to another permissions
 contract ZombieFactory is Ownable {
+
+    using SafeMath for uint256; // The SafeMath library has 4 functions — add, sub, mul, and div.
 
     // Declares the NewZombie event. Event will let the front-end know every time
     // a new zombie has been created, so the dApp can display the zombie.

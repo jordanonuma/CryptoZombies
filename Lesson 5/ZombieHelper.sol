@@ -25,7 +25,7 @@ contract ZombieHelper is ZombieFeeding {
   // A fee of 0.001 Ether is required from the user to increase their zombie's level +1.
   function levelUp(uint _zombieId) external payable {
     require(msg.value == levelUpFee);
-    zombies[_zombieId].level++;
+    zombies[_zombieId].level = zombies[_zombiesId].level.add(1);
   } // end of function levelUp()
 
   // For zombies level 2 and higher, users will be able to change their name.

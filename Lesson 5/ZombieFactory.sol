@@ -10,6 +10,8 @@ import "./SafeMath.sol";
 contract ZombieFactory is Ownable {
 
     using SafeMath for uint256; // The SafeMath library has 4 functions — add, sub, mul, and div.
+    using SafeMath32 for uint32;
+    using SafeMath16 for uint16;
 
     // Declares the NewZombie event. Event will let the front-end know every time
     // a new zombie has been created, so the dApp can display the zombie.
@@ -32,7 +34,7 @@ contract ZombieFactory is Ownable {
     // Public `Zombie` struct with array named `zombies`
     Zombie[] public zombies;
     mapping (uint => address) public zombieToOwner;
-    mapping (address => uint) ownerZombieCount;
+    mapping (address => uint) public ownerZombieCount;
 
     function _createZombie(string _name, uint _dna) internal { // internal type so ZombieFeeding.sol can access
         // Creates a new `Zombie`, and adds it to the `zombies` array.
@@ -46,7 +48,7 @@ contract ZombieFactory is Ownable {
         uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime), 0, 0)) - 1;
 
         zombieToOwner[id] = msg.sender;
-        ownerZombieCount[msg.sender]++;
+        ownerZombieCount[msg.sender] = ownerZombieCount[msg.sender].add(1);
 
         // Fires the event to let the dApp know the new zombie was added to the `zombies` arrray.
         NewZombie(id, _name, _dna);
@@ -68,7 +70,6 @@ contract ZombieFactory is Ownable {
         uint randDna = _generateRandomDna(_name);
         randDna = randDna - randDna % 100;
         _createZombie(_name, randDna);
-
     } // end of function createRandomZombie()
 
 } // end of Contract.sol

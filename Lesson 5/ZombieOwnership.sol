@@ -3,6 +3,10 @@ pragma solidity ^0.4.25;
 import "./ZombieAttack.sol";
 import "./ERC721.sol";
 
+// Practice for natspec compliant comments
+/// @title A contract that manages zombie ownership
+/// @author Jordan (via CryptoZombies Tutorial)
+/// @dev Compliant with OpenZeppelin's implementation of the ERC721 spec draft
 contract ZombieOwnership is ZombieAttack, ERC721 {
 
   using SafeMath for uint256;

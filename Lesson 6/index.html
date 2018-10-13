@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <title>CryptoZombies front-end</title>
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="web3.min.js"></script>  //Added in Chapter 6 Lesson 1
+    <script language="javascript" type="text/javascript" src="cryptozombies_abi.js"></script> //Added in Chapter 6 Lesson 3
 
   </head>
   <body>
     <script>
+    var cryptoZombies;
+
+    function startApp() {
+      // String "YOUR_CONTRACT_ADDRESS" is the CryptoZombies contract address on mainnet.
+      var cryptoZombiesAddress = "YOUR_CONTRACT_ADDRESS";
+
+      // Instantiates our contract by setting variable 'cryptoZombies' equal to a new web3js.eth.Contract.
+      cryptoZombies = new web3js.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+    } // end of function startApp(){}
+
       window.addEventListener('load', function() {
 
         // Checking if Web3 has been injected by the browser (Mist/MetaMask)

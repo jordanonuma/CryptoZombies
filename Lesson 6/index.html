@@ -28,6 +28,10 @@
       return cryptoZombies.methods.zombieToOwner(id).call() //calls mapping 'zombieToOwner(id)' from Solidity contracts
     } // end of function zombieToOwner(){}
 
+    function getZombiesByOwner(address) {
+      return cryptoZombies.methods.getZombieByOwner(address).call() //calls Solidity (private?) function getZombieByOwner(address _owner)
+    } // end of function getZombiesByOwner(){}
+
       window.addEventListener('load', function() {
 
         // Checking if Web3 has been injected by the browser (Mist/MetaMask)

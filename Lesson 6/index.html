@@ -24,10 +24,12 @@
       return cryptoZombies.methods.zombies(id).call() //calls mapping 'zombies(id)' from Solidity contracts
     } // end of function getZombieDetails(){}
 
+    // Function zombieToowner(){} takes 'id' as a parameter and returns a Web3.js call to zombieToOwner on our contract.
     function zombieToOwner(id) {
       return cryptoZombies.methods.zombieToOwner(id).call() //calls mapping 'zombieToOwner(id)' from Solidity contracts
     } // end of function zombieToOwner(){}
 
+    // Function getZombiesByOwner(){} takes 'address' as a parameter and returns a Web3.js call to getZombiesByOwner on our contract.
     function getZombiesByOwner(address) {
       return cryptoZombies.methods.getZombieByOwner(address).call() //calls Solidity (private?) function getZombieByOwner(address _owner)
     } // end of function getZombiesByOwner(){}

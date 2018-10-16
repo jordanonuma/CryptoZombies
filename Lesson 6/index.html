@@ -11,7 +11,7 @@
   <body>
     <script>
     var cryptoZombies;
-    var userAccount = web3.eth.accounts[0] //Declares 'userAccount'
+    var userAccount = web3.eth.accounts[0]; //Declares 'userAccount'
 
     function startApp() {
       // String "YOUR_CONTRACT_ADDRESS" is the CryptoZombies contract address on mainnet.
@@ -19,6 +19,15 @@
 
       // Instantiates our contract by setting variable 'cryptoZombies' equal to a new web3js.eth.Contract.
       cryptoZombies = new web3js.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+
+      // Allows the dApp to change when user changes their MetaMask account
+      var accountInterval = setInterval(function() {
+        // Check if account has changed
+        if (web3.eth.accounts[0] !== userAccount) {
+          userAccount = web3.eth.accounts[0];
+          updateInterface(); // // Call some function to update the UI with the new account
+        } // end if (web3.eth.accounts[0] != userAccount) {}
+      }, 100); // end var accountInterval
     } // end of function startApp(){}
 
     function getZombieDetails(id) {

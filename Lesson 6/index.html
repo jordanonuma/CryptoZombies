@@ -11,7 +11,7 @@
   <body>
     <script>
     var cryptoZombies;
-    var userAccount = web3.eth.accounts[0]; //Declares 'userAccount'
+    var userAccount; //Declares 'userAccount'
 
     function startApp() {
       // String "YOUR_CONTRACT_ADDRESS" is the CryptoZombies contract address on mainnet.
@@ -25,7 +25,7 @@
         // Check if account has changed
         if (web3.eth.accounts[0] !== userAccount) {
           userAccount = web3.eth.accounts[0];
-          updateInterface(); // // Call some function to update the UI with the new account
+          getZombiesByOwner(userAccount).then(displayZombies); //Calls function getZombieByOwner() and passes results (the ERC-721 zombies) to to-be-created function displayZombies
         } // end if (web3.eth.accounts[0] != userAccount) {}
       }, 100); // end var accountInterval
     } // end of function startApp(){}

@@ -10,6 +10,7 @@
   </head>
   <body>
     <script>
+    <div id="zombies"></div>
     var cryptoZombies;
     var userAccount; //Declares 'userAccount'
 
@@ -29,6 +30,10 @@
         } // end if (web3.eth.accounts[0] != userAccount) {}
       }, 100); // end var accountInterval
     } // end of function startApp(){}
+
+    function displayZombies(ids) {
+  
+    }
 
     function getZombieDetails(id) {
       return cryptoZombies.methods.zombies(id).call() //calls mapping 'zombies(id)' from Solidity contracts

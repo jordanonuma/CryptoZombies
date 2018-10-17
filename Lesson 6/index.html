@@ -10,7 +10,8 @@
   </head>
   <body>
     <script>
-    <div id="zombies"></div>
+    <div id="txStatus"></div> //Used to update user if zombie has been "Succesfully created" or if it throws "error"
+    <div id="zombies"></div> //Used to append HTML zombie details
     var cryptoZombies;
     var userAccount; //Declares 'userAccount'
 
@@ -31,6 +32,11 @@
       }, 100); // end var accountInterval
     } // end of function startApp(){}
 
+    // 'userAccount' is passed through as 'ids'. Function displayZombies(ids):
+    //    1) loops through each of 'ids', called 'id'
+    //    2) calls getZombieDetails(id)
+    //    3) Formats in HTML template the zombie Name, DNA, Level, Wins, Losses, and readyTime
+    //    4) Appends (3) to the #zombies div.
     function displayZombies(ids) {
       $("#zombies").empty();  //empties the '#zombies' div so if user changes MetaMask account, old zombie tokens are cleared
       for (id of ids) {

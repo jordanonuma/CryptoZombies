@@ -69,13 +69,31 @@
         $("#txStatus").text("Successfully created " + name + "!");
         // Transaction was accepted into the blockchain, let's redraw the UI
         getZombiesByOwner(userAccount).then(displayZombies);
-      })
+      }) //end .on("receipt")
       .on("error", function(error) {
         // Do something to alert the user their transaction has failed
         $("#txStatus").text(error);
-      });
-    }
-    
+      }); //end .on("error")
+    } //end of function createRandomZombie(){}
+
+    function feedOnKitty(zombieId, kittyId) {
+      // This is going to take a while, so update the UI to let the user know
+      // the transaction has been sent
+      $("#txStatus").text("Eating a kitty. This may take a while...");
+      // Send the tx to our contract:
+      return cryptoZombies.methods.feedOnKitty(zombieId, kittyId)
+      .send({ from: userAccount })
+      .on("receipt", function(receipt) {
+        $("#txStatus").text("Ate a kitty and spawned a new Zombie!");
+        // Transaction was accepted into the blockchain, let's redraw the UI
+        getZombiesByOwner(userAccount).then(displayZombies);
+      }) //end .on("receipt")
+      .on("error", function(error) {
+        // Do something to alert the user their transaction has failed
+        $("#txStatus").text(error);
+      }); //end .on("error")
+    } //end of function feedOnKitty
+
     function getZombieDetails(id) {
       return cryptoZombies.methods.zombies(id).call() //calls mapping 'zombies(id)' from Solidity contracts
     } // end of function getZombieDetails(){}

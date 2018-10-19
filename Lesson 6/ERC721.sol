@@ -7,8 +7,8 @@ pragma solidity ^0.4.25;
 // for ERC721 tokens.
 
 contract ERC721 {
-  event Transfer(address indexed _from, address indexed _to, uint256 _tokenId);
-  event Approval(address indexed _owner, address indexed _approved, uint256 _tokenId);
+  event Transfer(address indexed _from, address indexed _to, uint256 _tokenId); //indexed _from and _to allows us to filter the Transfer event in index.html
+  event Approval(address indexed _owner, address indexed _approved, uint256 _tokenId); //indexed _owner and _approved allows us to filter the Approval event in index.html
 
   function balanceOf(address _owner) public view returns (uint256 _balance);
   function ownerOf(uint256 _tokenId) public view returns (address _owner);

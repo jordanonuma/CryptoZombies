@@ -30,6 +30,17 @@
           getZombiesByOwner(userAccount).then(displayZombies); //Calls function getZombieByOwner() and passes results (the ERC-721 zombies) to to-be-created function displayZombies
         } // end if (web3.eth.accounts[0] != userAccount) {}
       }, 100); // end var accountInterval
+
+      // Added to the end of function startApp() to make sure that contract cryptoZombies{} has been initialized before adding below event Listener
+      // events.Transfer({}) alerts user when they get new ERC721 token.
+      cryptoZombies.events.Transfer({ filter: { _to: userAccount } })
+      .on("data", function(event) {
+        let data = event.returnValues;
+        // The current user just received a zombie!
+        getZombiesByOwner(userAccount).then(displayZombies); ////Calls function getZombieByOwner() and passes results (the ERC-721 zombies) to to-be-created function displayZombies
+      }) //end .on("data", function(event){})
+      .on("error", console.error);  //end events.Transfer({})
+
     } // end of function startApp(){}
 
     // 'userAccount' is passed through as 'ids'. Function displayZombies(ids):

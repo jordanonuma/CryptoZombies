@@ -7,4 +7,4 @@ Below is the general progression of the contracts, each with their own sublesson
  - Lesson 5: ERC721 & Crypto-Collectibles
  - Lesson 6: App Front-ends & Web3.js
 
-Fun available at [cryptozombies.io](cryptozombies.io).
+Fun available at [cryptozombies.io](https://cryptozombies.io/).
